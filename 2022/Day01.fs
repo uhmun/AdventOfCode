@@ -1,23 +1,45 @@
-﻿module AoC2022_Day01
+﻿module AoC2022Day01
+
+//┌───────┬────────┬──────────┬──────────────┐
+//│ Day   │ Part   │ Solution │ Elapsed time │
+//├───────┼────────┼──────────┼──────────────┤
+//│ Day 1 │ Part 1 │ 69912    │ 4 ms         │
+//│ Day 1 │ Part 2 │ 208180   │ 4 ms         │
+//└───────┴────────┴──────────┴──────────────┘
 
 open AoCHelper
 open System.IO
 open System.Threading.Tasks
 
+module common = 
+    let getCaloriesArray input = 
+        let caloriesArray = ResizeArray<int>()
+        let mutable currentCalories = 0
+
+        for calories:string in input do
+            if (System.String.IsNullOrWhiteSpace calories) then
+                caloriesArray.Add currentCalories
+                currentCalories <- 0
+            else currentCalories <- currentCalories + int calories
+
+        caloriesArray.Sort()
+        caloriesArray.Reverse()
+        caloriesArray
+
 module solve_1 =
     let solution input = 
-        task{
-            let result = ""
-            return result
-        }
+        let caloriesArray = common.getCaloriesArray input |> Seq.head
+
+        let result = caloriesArray
+        result.ToString()
         
 
 module solve_2 =
     let solution input = 
-        task{
-            let result = ""
-            return result
-        }
+        let caloriesArray = common.getCaloriesArray input |> Seq.take(3) |> Seq.sum
+        
+        let result = caloriesArray
+        result.ToString()
 
 type Day01() = 
     inherit BaseDay()
