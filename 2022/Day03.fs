@@ -1,4 +1,4 @@
-﻿module AoC2022Day0_
+﻿module AoC2022Day03
 
 //┌───────┬────────┬──────────┬──────────────┐
 //│ Day   │ Part   │ Solution │ Elapsed time │
@@ -19,7 +19,7 @@ module solve_2 =
         let result = ""
         result.ToString()
 
-type Day0_() = 
+type Day03() = 
     inherit BaseDay()
     let inputFile = File.ReadAllLines(base.InputFilePath)
     override  this.Solve_1() = solve_1.solution inputFile |> ValueTask<string>

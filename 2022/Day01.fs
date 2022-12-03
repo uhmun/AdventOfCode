@@ -11,6 +11,24 @@ open AoCHelper
 open System.IO
 open System.Threading.Tasks
 
+//module attempt2 =
+//    let getCaloriesArray input = 
+//        let divide pred input =
+//            let f x (acc,buf) =
+//                match pred x,buf with
+//                | true,buf -> (acc,(int)x::buf)
+//                | false,[] -> (acc,[])
+//                | false,buf -> (buf::acc,[])
+
+//            let rest,remainingBuffer = Array.foldBack f input ([],[])
+//            match remainingBuffer with
+//            | [] -> rest
+//            | buf -> buf :: rest
+
+//        let pred (s:string) = (System.String.IsNullOrWhiteSpace s = false)
+//        let caloriesArray = divide pred input
+//        caloriesArray
+
 module common = 
     let getCaloriesArray input = 
         let caloriesArray = ResizeArray<int>()
