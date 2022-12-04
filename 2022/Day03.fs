@@ -4,14 +4,14 @@
 //│ Day   │ Part   │ Solution │ Elapsed time │
 //├───────┼────────┼──────────┼──────────────┤
 //│ Day 3 │ Part 1 │ 8018     │ 13 ms        │
+//│ Day 3 │ Part 2 │ 2518     │ 3 ms         │
 //└───────┴────────┴──────────┴──────────────┘
 
 open AoCHelper
 open System.IO
 open System.Threading.Tasks
 
-module solve_1 =
-    let mutable result = 0
+module common =
     let getPrioValues = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()
 
     let getPriority (charArray: char array) =
@@ -20,6 +20,11 @@ module solve_1 =
             let value = getPrioValues |> Array.findIndex ((=) c)
             count <- count + (value + 1)
         count
+
+module solve_1 =
+    open common
+
+    let mutable result = 0
 
     let intersect (rucksack:string) =
         let compartments = rucksack.ToCharArray() |> Array.splitInto 2
@@ -32,8 +37,17 @@ module solve_1 =
         result.ToString()
 
 module solve_2 =
-    let solution input = 
-        let result = ""
+    open common
+
+    let solution (input: string array) = 
+        let mutable result = 0
+
+        let thirds = input |> Array.chunkBySize 3
+        
+        for groupOfRucksacks in thirds do
+            let intersection = Set.intersect (set (groupOfRucksacks[0].ToCharArray())) (set (groupOfRucksacks[1].ToCharArray())) |> Set.intersect (set (groupOfRucksacks[2].ToCharArray())) |> Array.ofSeq
+            result <- result + getPriority intersection
+
         result.ToString()
 
 type Day03() = 
